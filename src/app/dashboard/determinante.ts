@@ -39,12 +39,51 @@ export class Cramer{
   
 
     getMatrix(){
-        console.log(`${this.x1}  ${this.y1} ${this.z1}\n${this.x2}  ${this.y2} ${this.z2}\n${this.x3}  ${this.y3} ${this.z3}
+        console.log(`${this.x1} ${this.y1} ${this.z1}\n
+                    ${this.x2}  ${this.y2} ${this.z2}\n
+                    ${this.x3}  ${this.y3} ${this.z3}
         `);
     }
 
     printVariables(){
         console.log(`x1 -> ${this.x1} \nx2 -> ${this.x2}\nx3 -> ${this.x3}\ny1 -> ${this.y1} \ny2 -> ${this.y2}\ny3 -> ${this.y3}\nz1 -> ${this.z1} \nz2 -> ${this.z2}\nz3 -> ${this.z3}\nR1 -> ${this.result1} \nR2 -> ${this.result2}\nR3 -> ${this.result3}\n` );
+    }
+
+    
+
+    public Det(){
+        let xone = this.x1;
+        let Aone = this.A1();
+        let yone = this.y1;
+        let Atwo = this.A2();
+        let zone = this.z1;
+        let Athree = this.A3();
+        let det = xone * Aone - yone * Atwo + zone * Athree;        
+        //let det = this.x1 * this.A1() - this.y1 * this.A2() + this.z1 * this.A3();
+        return det;
+    }
+
+    public X(){
+        let A1 = this.result1 * (this.y2 * this.z3 - this.y3 * this.z2);
+        let A2 = this.y1 * (this.result2 * this.z3 - this.result3 * this.z2);
+        let A3 = this.z1 * (this.result2 * this.y3 - this.result3 * this.y2);
+        let D = A1 - A2 + A3;
+        return D / this.determinat;
+    }
+    public Y(){
+
+        let A1 = this.x1 * (this.result2 * this.z3 - this.result3 * this.z2);
+        let A2 = this.result1 * (this.x2 * this.z3 - this.x3 * this.z2);
+        let A3 = this.z1 * (this.x2 * this.result3 - this.x3 * this.result2);
+        let D = A1 - A2 + A3 ;
+        return D / this.determinat;
+    }
+    public Z(){
+        let A1 = this.x1 * (this.y2 * this.result3 - this.y3 * this.result2);
+        let A2 = this.y1 * (this.x2 * this.result3 - this.x3 * this.result2);
+        let A3 = this.result1 * (this.x2 * this.y3 - this.x3 * this.y2);
+        let D = A1 - A2  + A3 ;
+        return D / this.determinat;
     }
 
     public A1(){
@@ -62,33 +101,6 @@ export class Cramer{
         return  this.redondeo(a3, 2);
     }
 
-    public Det(){
-        let det = this.x1 * this.A1() - this.y1 * this.A2() + this.z1 * this.A3();
-        return det;
-    }
-
-    public X(){
-        let A1 = this.result1 * (this.y2 * this.z3 - this.y3 * this.z2);
-        let A2 = this.y1 * (this.result2 * this.z3 - this.result3 * this.z2);
-        let A3 = this.z1 * (this.result2 * this.y3 - this.result3 * this.y2);
-        let D = A1 - A2 + A3;
-        return D / this.determinat;
-    }
-    public Y(){
-
-        let A1 = this.x1 * (this.result2 * this.y3 - this.result3 * this.y2);
-        let A2 = this.result1 * (this.x2 * this.y3 - this.x3 * this.y2);
-        let A3 = this.y1 * (this.x2 * this.result3 - this.x3 * this.result2);
-        let D = A1 - A2 + A3 ;
-        return D / this.determinat;
-    }
-    public Z(){
-        let A1 = this.x1 * (this.y2 * this.result3 - this.y3 * this.result2);
-        let A2 = this.y1 * (this.x2 * this.result3 - this.x3 * this.result2);
-        let A3 = this.result1 * (this.x2 * this.y3 - this.x3 * this.y2);
-        let D = A1 - A2  + A3 ;
-        return D / this.determinat;
-    }
 
     public redondeo(numero, decimales)
     {
